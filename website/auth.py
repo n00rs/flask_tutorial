@@ -23,7 +23,7 @@ def login():
         # login template name
         if not user:
             flash("INVALID_CREDENTIALS",category="error")
-            return render_template(str_login_template,boolean = True)
+            return render_template(str_login_template,boolean = True,user=current_user)
             
             
         if check_password_hash(user.password,str_password):
@@ -33,9 +33,9 @@ def login():
             return redirect(url_for('views.home'))
         else:
             flash("Incorrect password",category='error')
-            return render_template(str_login_template,boolean = True)
+            return render_template(str_login_template,boolean = True,user=current_user)
     else:
-            return render_template(str_login_template,boolean = True)
+            return render_template(str_login_template,boolean = True,user=current_user)
         
             
 
@@ -79,7 +79,7 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             
-            flash("SUCCESSFULLY_CREATED",category="success")
+            flash("SUCCESSFULLY_CREATED",category="success",user=current_user)
             # redirect the user to home page
             return redirect(url_for('views.home'))
     # else :
